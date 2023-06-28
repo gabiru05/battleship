@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 
 public class battleship implements ActionListener {
@@ -9,24 +8,15 @@ public class battleship implements ActionListener {
     JPanel button_panel = new JPanel();
     JLabel textfield = new JLabel();
     JFrame frame = new JFrame();
-    JButton[] buttons = new JButton[81];
+    JButton[] buttons = new JButton[82];
     boolean player1_turn = true;
     String jugador1 = "Gaby";
     String jugador2 = "Hillary";
 
     battleship() {
 
-        // Estamos Utilizando fuente personalizada Contener error en otro equipo
-        try {
-
-            textfield.setFont(new Font("Amatic SC", Font.BOLD, 55));
-
-        } catch (Exception e) {
-            System.err.println("Error al establecer la fuente: " + e.getMessage());
-
-            textfield.setFont(new Font("Arial", Font.BOLD, 75));
-            System.out.println("Usando: Fuente Arial");
-        }
+        LoadTabler();
+        setFuente(0, 1);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
@@ -46,28 +36,6 @@ public class battleship implements ActionListener {
         button_panel.setLayout(new GridLayout(9, 9));
         // button_panel.setBackground(new Color(250, 0, 0));
 
-        for (int i = 0; i < 81; i++) {
-            buttons[i] = new JButton();
-            // buttons[i].setBackground(Color.GREEN);
-            buttons[i].setContentAreaFilled(false);
-            button_panel.add(buttons[i]);
-            // buttons[i].setFont(new Font("MV Boli", Font.BOLD, 120));
-
-            // Estamos Utilizando fuente personalizada Contener error en otro equipo
-            try {
-
-                buttons[i].setFont(new Font("Dungeon", Font.BOLD, 55));
-
-            } catch (Exception e) {
-                System.err.println("Error al establecer la fuente: " + e.getMessage());
-
-                buttons[i].setFont(new Font("Arial", Font.BOLD, 75));
-                System.out.println("Usando: Fuente Arial");
-            }
-            buttons[i].setFocusable(false);
-            buttons[i].addActionListener(this);
-        }
-
         title_panel.add(textfield);
         frame.add(title_panel, BorderLayout.SOUTH);
         frame.add(button_panel);
@@ -80,7 +48,7 @@ public class battleship implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        for (int i = 0; i < 81; i++) {
+        for (int i = 1; i <= 81; i++) {
             if (e.getSource() == buttons[i]) {
                 if (player1_turn) {
                     if (buttons[i].getText() == "") {
@@ -106,4 +74,39 @@ public class battleship implements ActionListener {
         }
     }
 
+    public void setFuente(int i, int accion) {
+        // Estamos Utilizando fuente personalizada Contener error en otro equipo
+        try {
+            if (accion == 0) {
+                buttons[i].setFont(new Font("Dungeon", Font.BOLD, 55));
+                System.out.println("FBotones cargado: " + i);
+
+            } else {
+                textfield.setFont(new Font("Amatic SC", Font.BOLD, 55));
+                System.out.println("Ftextfield cargado");
+
+            }
+        } catch (Exception e) {
+            System.err.println("Error al establecer la fuente: " + e.getMessage());
+
+            buttons[i].setFont(new Font("Arial", Font.BOLD, 75));
+            System.out.println("Usando: Fuente Arial");
+        }
+
+    }
+
+    public void LoadTabler() {
+        for (int i = 1; i <= 81; i++) {
+            buttons[i] = new JButton();
+            // buttons[i].setBackground(Color.GREEN);
+            buttons[i].setContentAreaFilled(false);
+            button_panel.add(buttons[i]);
+           
+
+            setFuente(i, 0);
+
+            buttons[i].setFocusable(false);
+            buttons[i].addActionListener(this);
+        }
+    }
 }
