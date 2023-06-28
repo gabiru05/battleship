@@ -132,5 +132,7 @@ public class battleship implements ActionListener {
             buttons[i].setOpaque(false);
 
         }
+
     }
+
 }
