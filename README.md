@@ -1,13 +1,13 @@
 <h1 align="center">
   <img src="https://github.com/gabiru05/Gaby_Resource/blob/master/images/BingAi/Ship-png.png" alt="Takoizu bot " width="150">
   <br>
-  Recursos para usar en proyectos
+  Battleship Game
 </h1>
 <a name="readme-top"></a>
 
 <h4 align="center">
 
-Java, Python, c, c++, Html, Css, Javascript, Angular
+Created Using Java and JavaSwing for the Interface
 
 </h4>
 
