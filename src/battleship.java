@@ -24,11 +24,11 @@ public class battleship implements ActionListener {
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
 
-        // Set the background image using a JLabel
+        // Metemos el fondo en un Jlabel
         ImageIcon icon = new ImageIcon(
                 "C:\\Users\\gabri\\Downloads\\Programacion\\Semestral\\battleship\\src\\Image\\Mar3.jpg");
 
-        // Create a smooth, high-quality scaled version of the image
+        // Escalar imagen para mejor resolucion
         Image img = icon.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
         icon = new ImageIcon(img);
 
@@ -48,14 +48,14 @@ public class battleship implements ActionListener {
 
         button_panel.setLayout(new GridLayout(9, 9));
 
-        // Set the opaque property of the button_panel to false
+        // botones transaparente
         button_panel.setOpaque(false);
 
         // button_panel.setBackground(new Color(250, 0, 0));
 
         title_panel.add(textfield);
 
-        // Add the title_panel and button_panel to the background label
+        // Añadimos el titulo encima de fondo
         background.add(title_panel, BorderLayout.SOUTH);
         background.add(button_panel);
 

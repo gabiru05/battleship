@@ -53,14 +53,14 @@ public class battle implements ActionListener {
 
         button_panel.setLayout(new GridLayout(9, 9));
 
-        // Set the opaque property of the button_panel to false
+        // botones transaparente == false
         button_panel.setOpaque(false);
 
         // button_panel.setBackground(new Color(250, 0, 0));
 
         title_panel.add(textfield);
 
-        // Add the title_panel and button_panel to the background label
+        // Añadimos el titulo encima de fondo
         background.add(title_panel, BorderLayout.SOUTH);
         background.add(button_panel);
 
