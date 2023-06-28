@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,26 +20,39 @@ public class battleship implements ActionListener {
         setFuente(0, 1);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
+        frame.setSize(800, 900);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
 
-        textfield.setBackground(new Color(0, 250, 0));
+        // Establecer fondo
+        ImageIcon icon = new ImageIcon(
+                "C:\\Users\\gabri\\Downloads\\Programacion\\Semestral\\battleship\\src\\Image\\Mar3.jpg");
+        JLabel background = new JLabel(icon);
+        frame.setContentPane(background);
+        frame.setLayout(new BorderLayout());
+
+        // textfield.setBackground(new Color(0, 250, 0));
         textfield.setForeground(new Color(0, 0, 255));
 
         textfield.setHorizontalAlignment(JLabel.CENTER);
         textfield.setText("B A T T L E S H I P");
-        textfield.setOpaque(true);
+        textfield.setOpaque(false);
 
         title_panel.setLayout(new BorderLayout());
         title_panel.setBounds(0, 0, 800, 50);
 
         button_panel.setLayout(new GridLayout(9, 9));
+
+        // Set the opaque property of the button_panel to false
+        button_panel.setOpaque(false);
+
         // button_panel.setBackground(new Color(250, 0, 0));
 
         title_panel.add(textfield);
-        frame.add(title_panel, BorderLayout.SOUTH);
-        frame.add(button_panel);
+
+        // Add the title_panel and button_panel to the background label
+        background.add(title_panel, BorderLayout.SOUTH);
+        background.add(button_panel);
 
         // Mostrar el turno
         Utilidades.esperar(2);
@@ -96,17 +110,19 @@ public class battleship implements ActionListener {
     }
 
     public void LoadTabler() {
+
+        // Crear y agregar los botones
         for (int i = 1; i <= 81; i++) {
             buttons[i] = new JButton();
-            // buttons[i].setBackground(Color.GREEN);
             buttons[i].setContentAreaFilled(false);
+            buttons[i].setBorderPainted(true);
             button_panel.add(buttons[i]);
-           
 
             setFuente(i, 0);
 
             buttons[i].setFocusable(false);
             buttons[i].addActionListener(this);
+
         }
     }
 }
