@@ -16,23 +16,28 @@ public class battleship implements ActionListener {
 
     battleship() {
 
-        LoadTabler();
+        LoadTablero();
         setFuente(0, 1);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 900);
+        frame.setSize(800, 800);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
 
-        // Establecer fondo
+        // Set the background image using a JLabel
         ImageIcon icon = new ImageIcon(
                 "C:\\Users\\gabri\\Downloads\\Programacion\\Semestral\\battleship\\src\\Image\\Mar3.jpg");
+
+        // Create a smooth, high-quality scaled version of the image
+        Image img = icon.getImage().getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_SMOOTH);
+        icon = new ImageIcon(img);
+
         JLabel background = new JLabel(icon);
         frame.setContentPane(background);
         frame.setLayout(new BorderLayout());
 
         // textfield.setBackground(new Color(0, 250, 0));
-        textfield.setForeground(new Color(0, 0, 255));
+        // textfield.setForeground(new Color(0, 0, 255));
 
         textfield.setHorizontalAlignment(JLabel.CENTER);
         textfield.setText("B A T T L E S H I P");
@@ -109,7 +114,7 @@ public class battleship implements ActionListener {
 
     }
 
-    public void LoadTabler() {
+    public void LoadTablero() {
 
         // Crear y agregar los botones
         for (int i = 1; i <= 81; i++) {
@@ -122,6 +127,9 @@ public class battleship implements ActionListener {
 
             buttons[i].setFocusable(false);
             buttons[i].addActionListener(this);
+
+            // Set the opaque property to false
+            buttons[i].setOpaque(false);
 
         }
     }
