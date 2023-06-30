@@ -13,10 +13,10 @@ public class battle implements ActionListener {
     String jugador1 = "Gaby";
     String jugador2 = "Hillary";
     boolean boatlistos = false;
-    int clickcount = 1;
+    int clickcount = 0;
 
     private static final int SIZE = 9;
-    private static final String[][] matrix = new String[SIZE][SIZE];
+    private static final String[][] matrix = new String[SIZE + 1][SIZE + 1];
     private static boolean horizontal = true;
 
     battle() {
@@ -41,9 +41,6 @@ public class battle implements ActionListener {
         frame.setContentPane(background);
         frame.setLayout(new BorderLayout());
 
-        // textfield.setBackground(new Color(0, 250, 0));
-        // textfield.setForeground(new Color(0, 0, 255));
-
         textfield.setHorizontalAlignment(JLabel.CENTER);
         textfield.setText("B A T T L E S H I P");
         textfield.setOpaque(false);
@@ -55,8 +52,6 @@ public class battle implements ActionListener {
 
         // botones transaparente == false
         button_panel.setOpaque(false);
-
-        // button_panel.setBackground(new Color(250, 0, 0));
 
         title_panel.add(textfield);
 
@@ -120,59 +115,43 @@ public class battle implements ActionListener {
     }
 
     public void setFuente(int i, int accion) {
-        // Estamos Utilizando fuente personalizada Contener error en otro equipo
         try {
             if (accion == 0) {
                 buttons[i].setFont(new Font("Dungeon", Font.BOLD, 55));
                 System.out.println("FBotones cargado: " + i);
-
             } else {
                 textfield.setFont(new Font("Amatic SC", Font.BOLD, 55));
                 System.out.println("Ftextfield cargado");
-
             }
         } catch (Exception e) {
             System.err.println("Error al establecer la fuente: " + e.getMessage());
-
             buttons[i].setFont(new Font("Arial", Font.BOLD, 75));
             System.out.println("Usando: Fuente Arial");
         }
-
     }
 
     public void LoadTablero() {
-
-        // Crear y agregar los botones
-        for (int i = 1; i <= 81; i++) {
+        for (int i = 1; i <= SIZE * SIZE; i++) {
             buttons[i] = new JButton();
             buttons[i].setContentAreaFilled(false);
             buttons[i].setBorderPainted(true);
             button_panel.add(buttons[i]);
-
             setFuente(i, 0);
-
             buttons[i].setFocusable(false);
             buttons[i].addActionListener(this);
-
-            // Set the opaque property to false
             buttons[i].setOpaque(false);
-
         }
-
     }
 
     public void actualizarMatriz(int row, int col) {
-        // Eliminar las "x" anteriores
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int i = 1; i <= SIZE; i++) {
+            for (int j = 1; j <= SIZE; j++) {
                 matrix[i][j] = null;
             }
         }
 
-        // si Horizonte verdadero
         if (horizontal) {
-            // // Agregamos las --x-- hacia la derecha o izquierda
-            if (col + 2 < SIZE) {
+            if (col + 3 <= SIZE) {
                 for (int i = col; i <= col + 2; i++) {
                     matrix[row][i] = "x";
                 }
@@ -182,11 +161,8 @@ public class battle implements ActionListener {
                 }
             }
             horizontal = false;
-
-            // Sino Miramos eje de las ordenadas
         } else {
-            // Agregamos las --x-- hacia abajo o arriba
-            if (row + 2 < SIZE) {
+            if (row + 3 <= SIZE) {
                 for (int i = row; i <= row + 2; i++) {
                     matrix[i][col] = "x";
                 }
@@ -195,19 +171,18 @@ public class battle implements ActionListener {
                     matrix[i][col] = "x";
                 }
             }
-            // en caso ya este en vertical y el usuario lo quiera en Horizontal
             horizontal = true;
         }
     }
 
     public void actualizarBotones() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
+        for (int row = 1; row <= SIZE; row++) {
+            for (int col = 1; col <= SIZE; col++) {
+                int index = (row - 1) * SIZE + col;
+                About_barcos_Location(0, row, col, index, 1);
 
-                int index = i * SIZE + j + 1;
-
-                if (matrix[i][j] != null) {
-                    buttons[index].setText(matrix[i][j]);
+                if (matrix[row][col] != null) {
+                    buttons[index].setText(matrix[row][col]);
                 } else {
                     buttons[index].setText("");
                 }
@@ -217,10 +192,35 @@ public class battle implements ActionListener {
 
     public void setbarcos(int i) {
 
-        int row = (i - 1) / SIZE;
-        int col = (i - 1) % SIZE;
+        int row = (i - 1) / SIZE + 1;
+        int col = (i - 1) % SIZE + 1;
         actualizarMatriz(row, col);
         actualizarBotones();
+        About_barcos_Location(i, row, col, 0, 2);
 
+    }
+
+    public void About_barcos_Location(int i, int row, int col, int index, int test) {
+        // For debugging purposes
+        if (test == 1) {
+            System.out.println(" ");
+            System.out.println("index: " + index);
+            System.out.println("Sizes: " + SIZE);
+            System.out.println("col " + col);
+            System.out.println("row " + row);
+            System.out.println(" ");
+        } else if (test == 2) {
+
+            System.out.println(i + " i");
+            System.out.println(i - 1 + " i -1");
+
+            System.out.println("Sizes: " + SIZE);
+            System.out.println("size + 1 : " + SIZE + 1);
+
+            System.out.println(row + " row");
+            System.out.println(col + " Col");
+        } else {
+            System.out.println("Solo hay dos test");
+        }
     }
 }
