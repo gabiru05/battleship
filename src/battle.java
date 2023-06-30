@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class battle implements ActionListener {
 
+    // Declarar e inicializar variables y componentes
     JPanel title_panel = new JPanel();
     JPanel button_panel = new JPanel();
     JLabel textfield = new JLabel();
@@ -19,6 +20,7 @@ public class battle implements ActionListener {
     private static final String[][] matrix = new String[SIZE + 1][SIZE + 1];
     private static boolean horizontal = true;
 
+    // Constructor para configurar el tablero de juego y la Interfaz
     battle() {
 
         LoadTablero();
@@ -64,6 +66,7 @@ public class battle implements ActionListener {
         textfield.setText("Es turno de:" + jugador1);
     }
 
+    // Método para manejar los clics de botones y la lógica del juego
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -114,6 +117,7 @@ public class battle implements ActionListener {
 
     }
 
+    // Método para establecer la fuente para los botones y el campo de texto
     public void setFuente(int i, int accion) {
         try {
             if (accion == 0) {
@@ -130,6 +134,7 @@ public class battle implements ActionListener {
         }
     }
 
+    // Método para crear y agregar los botones al tablero de juego
     public void LoadTablero() {
         for (int i = 1; i <= SIZE * SIZE; i++) {
             buttons[i] = new JButton();
@@ -143,6 +148,7 @@ public class battle implements ActionListener {
         }
     }
 
+    // Método para actualizar la matriz del juego con la ubicación de los barcos
     public void actualizarMatriz(int row, int col) {
         for (int i = 1; i <= SIZE; i++) {
             for (int j = 1; j <= SIZE; j++) {
@@ -175,21 +181,27 @@ public class battle implements ActionListener {
         }
     }
 
+    // Método para actualizar los botones en el tablero de juego para mostrar dónde
+    // están colocados los barcos
     public void actualizarBotones() {
         for (int row = 1; row <= SIZE; row++) {
             for (int col = 1; col <= SIZE; col++) {
                 int index = (row - 1) * SIZE + col;
+                // Ubicacion de botones
                 About_barcos_Location(0, row, col, index, 1);
-
+                // revisar matriz
+                About_barcos_Location(0, row, col, 0, 3);
                 if (matrix[row][col] != null) {
                     buttons[index].setText(matrix[row][col]);
                 } else {
                     buttons[index].setText("");
                 }
             }
+            System.out.println();
         }
     }
 
+    // Método para colocar los barcos en el tablero
     public void setbarcos(int i) {
 
         int row = (i - 1) / SIZE + 1;
@@ -200,9 +212,12 @@ public class battle implements ActionListener {
 
     }
 
+    // Método para imprimir información sobre la ubicación de los barcos con fines
+    // de depuración
     public void About_barcos_Location(int i, int row, int col, int index, int test) {
-        // For debugging purposes
+
         if (test == 1) {
+            System.out.println("Obtener datos de ubicaci\u00F3n de los botones");
             System.out.println(" ");
             System.out.println("index: " + index);
             System.out.println("Sizes: " + SIZE);
@@ -211,16 +226,19 @@ public class battle implements ActionListener {
             System.out.println(" ");
         } else if (test == 2) {
 
+            System.out.println("Datos del Boton presionado");
             System.out.println(i + " i");
             System.out.println(i - 1 + " i -1");
 
             System.out.println("Sizes: " + SIZE);
-            System.out.println("size + 1 : " + SIZE + 1);
-
             System.out.println(row + " row");
             System.out.println(col + " Col");
+            System.out.println(" ");
+        } else if (test == 3) {
+            System.out.print(matrix[row][col] + " ");
+            System.out.println(" ");
         } else {
-            System.out.println("Solo hay dos test");
+            System.out.println("Solo hay 3 test");
         }
     }
 }
